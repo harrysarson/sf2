@@ -3,15 +3,11 @@
 D = 256;
 N = 15;
 
-Xf = zeros(D, D + N - 1);
-
 h = halfcos(N);
 
-for row = 1:D
-   Xf(row, :) = conv(X(row, :), h);
-end
+Xf = conv2(1, h, X, 'same');
 
-draw(Xf(:,(1:D)+floor(N/2)));
+draw(Xf);
 
 
 

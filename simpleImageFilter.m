@@ -5,7 +5,7 @@ N = 15;
 
 h = halfcos(N);
 
-Xf = conv2(1, h, X, 'same');
+Xf = conv2se(1, h, X);
 
 draw(Xf);
 

@@ -16,7 +16,7 @@ for i = 1:(plots-1)
     HP = X - LP;
 
     subplot(1, plots, i);
-    plotColumn(HP, LP, sprintf('Filter length %g', N))
+    plotColumn(HP, LP, sprintf('Filter $$N = %g$$', N))
 end
 
 % Keep DC only
@@ -32,16 +32,12 @@ plotColumn(HP, LP, 'Filter DC only')
 function plotColumn (HP, LP, columnTitle)
     dimensions = size(LP);
     whitespace = ones(60, dimensions(2)) * 255;
-    data = [ LP; whitespace; HP + 128; whitespace; whitespace];
+    data = [ LP; whitespace; HP + 128];
     image(data);
-    text(4, dimensions(1) + 16, sprintf('Energy %g', sum(LP(:).^2)));
-    text(4, 2*dimensions(1) + 60 + 16, sprintf('Energy %g', sum(HP(:).^2)));
-    text(4, 2*dimensions(1) + 60 + 16 + 30, sprintf('Total %g', sum(LP(:).^2 + HP(:).^2)));
-    title(columnTitle);
     axis image;
     axis off;
-    xlabel(sprintf('Energy %g', sum(LP(:).^2)));
-    xlabel(sprintf('Energy %g', sum(HP(:).^2)));
+    title(sprintf('%s\nLow pass $$E = %.4g$$\nHigh pass $$E = %.4g$$\nTotal $$E = %.4g$$', ...
+        columnTitle, sum(LP(:).^2) / 1e6, sum(HP(:).^2) / 1e6, sum(LP(:).^2 + HP(:).^2) / 1e6), 'interpreter', 'latex');
 end
 
 

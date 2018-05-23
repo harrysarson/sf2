@@ -1,4 +1,4 @@
-function Y = colxfm(X,C)
+    function Y = colxfm(X,C)
 
 %COLXFM Column transformation.
 %  Y = COLXFM(X, C) transforms the columns of X using the

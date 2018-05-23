@@ -13,7 +13,7 @@ maxx = max(max(x));
 
 % Calculate histogram of x in bins defined by  bins.
 bins = [floor(minx):ceil(maxx)];
-if bins<2
+if length(bins)<2
    b = 0; % in this case there is no information, since all the values are identical
    return
 else

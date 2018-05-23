@@ -16,7 +16,7 @@ function [Pf Pr] = pot_ii(N, s, O)
 %  and no greater than N/2. Default is N/2, which implies complete
 %  overlap with the corresponding DCT
 
-error(nargchk(1, 3, nargin, 'struct'));
+narginchk(1, 3);
 if (nargin<3)
   O = N/2;
   if (nargin<2)

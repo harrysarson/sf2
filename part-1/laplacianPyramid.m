@@ -113,14 +113,14 @@ QW0 = interpolate(QX1, lp_coeffs) + QY0;
 diff = Z0 - X0;
 qDiff = QZ0 - X0;
 mseDiff = MSEZ0 - X0;
-refDiff = QX - X0;
+refDiff = QX0 - X0;
 originalEntropy = entropy(X0);
 
 fprintf('\n\nNAME\t\t\t| mean\t\t| std dev\t| cmpn\t|\n');
-fprintf('Original\t\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(diff(:)), std(diff(:)), entropy(Z0) / originalEntropy);
-fprintf('Uniform quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(qDiff(:)), std(qDiff(:)), Qbits(4) / originalEntropy);
-fprintf('MSE quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(mseDiff(:)), std(mseDiff(:)), MSEbits / originalEntropy);
-fprintf('Direct quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(refDiff(:)), std(refDiff(:)), entropy(QX) / originalEntropy);
+fprintf('Original\t\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(diff(:)), std(diff(:)), entropy(QX0) / entropy(Z0));
+fprintf('Uniform quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(qDiff(:)), std(qDiff(:)), entropy(QX0) / Qbits(4));
+fprintf('MSE quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(mseDiff(:)), std(mseDiff(:)), entropy(QX0) / MSEbits);
+fprintf('Direct quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(refDiff(:)), std(refDiff(:)), 1);
 % 
 % figure('Name', '1/256th sized image (below with quantisation)');
 % draw(below(X4, QX4)); 
@@ -143,7 +143,7 @@ fprintf('Direct quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(refDiff(:)), 
 
 
 figure('Name', 'Original Image -- Directly Quantised -- Equal Step Size -- Equal MSE');
-draw(beside(X0, beside(QX, beside(QZ0, MSEZ0))));
+draw(beside(X0, beside(QX0, beside(QZ0, MSEZ0))));
 
 function printEntropy(name, image, step)
 

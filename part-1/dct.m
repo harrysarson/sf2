@@ -20,9 +20,9 @@ assert(max(diff(:)) < 1e-10)
 
 %% Bases
 
-bases = [ zeros(1, N); CN'; zeros(1, N) ];
-figure(1);
-draw(255 * bases(:)*bases(:)');
+% bases = [ zeros(1, N); CN'; zeros(1, N) ];
+% figure(1);
+% draw(formatImg(bases(:)*bases(:)'));
 
 
 %% Quantisation
@@ -38,7 +38,7 @@ Yq = quantise(Y, step_size);
 Yr = regroup(Yq, N);
 Zq = colxfm(colxfm(Yq', CN')', CN');
 figure(2);
-draw(beside(Z, beside(Xq, X0)));
+draw(Zq);
 
 dctDiff = Zq - X0;
 
@@ -48,9 +48,9 @@ bbpN = 8;
 
 fprintf('N  = %g\n', N);
 fprintf('NAME\t\t\t| mean\t\t| std dev\t| cmpn\t|\n');
-fprintf('Original\t\t| %+.3f\t| %+.3f\t| %.3f\t|\n', 0, 0, entropy(Z));
-fprintf('Uniform quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(qDiff(:)), std(qDiff(:)), entropy(Xq)); %entropy(Z0) / originalEntropy); Qbits(4) / originalEntropy);
-fprintf('DCT quantisation\t| %+.3f\t| %+.3f\t| %.3f\t| (N" = %G)\n', mean(dctDiff(:)), std(dctDiff(:)), dctbpp(Yr, bbpN) * numel(Yr), bbpN); %entropy(Z0) / originalEntropy); Qbits(4) / originalEntropy);
+fprintf('Original\t\t| %+.3f\t| %+.3f\t| %.3f\t|\n', 0, 0, entropy(Xq) / entropy(Z));
+fprintf('Uniform quantisation\t| %+.3f\t| %+.3f\t| %.3f\t|\n', mean(qDiff(:)), std(qDiff(:)), 1); %entropy(Z0) / originalEntropy); Qbits(4) / originalEntropy);
+fprintf('DCT quantisation\t| %+.3f\t| %+.3f\t| %.3f\t| (N" = %G)\n', mean(dctDiff(:)), std(dctDiff(:)), entropy(Xq) / (dctbpp(Yr, bbpN) * numel(Yr)), bbpN); %entropy(Z0) / originalEntropy); Qbits(4) / originalEntropy);
 fprintf('step size for DCT quantisation = %g\n', step_size);
 
 
